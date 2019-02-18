@@ -1,0 +1,88 @@
+{include  file="./public/common/top.html"/}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>分页显示鲜花</title>
+<link href="__ROOT__/public/static/css/StyleIndex.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<center>
+<div class="content">
+<div class="left">
+{include  file="./public/common/left.html"/}
+</div>
+<div class="right">
+<div class="pages" align="left">{$page}</div>
+<form method="get">
+        		<table style='width:700px;border-width:1px;border-style:dotted;' align=center>
+        			    {foreach $result as $flower}
+        			    <tr>
+        			    	<td rowspan=7 width=170>
+        			    		<a href="{:url('index/showflower/flowerdetail')}?flowerID={$flower.flowerID}">
+        			    			<img src="__ROOT__/public/static/picture/{$flower.picturem}" border=0/>
+        			    		</a>
+        			    	</td>
+       				 	<td colspan=2 align=center>
+       				 		<div style="font-weight:bold;font-size:medium;height:40px;line-height:40px;color:#000066;text-align:center;border-width:1px;  border-style:solid;border-color:red;">
+       				 			{$flower.fname}
+       				 		</div>
+       				 	</td>
+       				 </tr>
+       		  	     <tr>
+       		  	     	<td width=50>
+       		  	     		<font size=2>材料:</font>
+       		  	     	</td>
+                        <td>
+                        	<font size=2>{$flower.cailiao}</font>
+                        </td>
+       		  	     </tr>
+                        <tr>
+                        	<td width=50>
+                        		<font size=2>包装：</font>
+                        	</td>
+                        	<td>
+                        		<font size=2>{$flower.baozhuang}</font>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<td width=50>
+                        		<font size=2>花语：</font>
+                        	</td>
+                        	<td>
+                        		<font size=2>{$flower.huayu}</font>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<td width=50>
+                        		<font size=2>说明：</font>
+                        	</td>
+                        	<td>
+                        		<font size=2>{$flower.shuoming}</font>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<td colspan=2>
+                        		<div style="text-align:left;font-size: medium; color: #000066;">
+                        			<div style="text-decoration:line-through;margin-top:8px;">原价:￥{$flower.price}</div>
+                        			<font size=4 color=red><b>现价：￥{$flower.yourprice}</b></font>
+                        		</div>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<td colspan=2>
+                        		<a href="{:url('index/cart/addCart')}?flowerID={$flower.flowerID}">
+                        			<img src="__ROOT__/public/static/image/ingwc_ico.jpg" border="0"/>
+                        		</a>
+                        	</td>
+                        </tr>
+			{/foreach}
+            	</table>
+   		</form>
+
+</div>
+</div>
+</center>
+</body>
+</html>

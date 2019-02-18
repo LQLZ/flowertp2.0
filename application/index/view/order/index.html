@@ -1,0 +1,194 @@
+{include  file="./public/common/top.html"/}
+<center>
+<table style="width:999px; border-width:0px;" align="center">
+<tr><td style="width:999px; border-width:0px;" align="center">
+<img src="__ROOT__/public/static/image/cartbg2.jpg"><br/><br/>
+
+ <form action="{:url('order/addOrder')}" name="f1"  method="post">
+<table style="width:881px;border-width:1px; border-style:dotted;font-size:x-small;">
+<tr>
+<td style="text-align:center;">
+<table style="width:881px;border-width:1px; border-style:groove;font-size:x-small;">
+ <tr>
+	<td style="text-align:center;font-weight:bold;width:881px">
+		<font size=4>选择收货人地址</font>&nbsp;&nbsp;&nbsp;
+		<font size=2><a href="{:url('customer/index')}">添加收货人地址</a></font>
+	</td>
+</tr>
+{foreach $customer as $cust}
+{if($cust.cdefault eq '1')}
+<tr><td>
+<input type='radio' name='custID' value='{$cust.custID}' checked>
+{$cust.sname},{$cust.mobile},{$cust.address},{$cust.zip}&nbsp;&nbsp;&nbsp; 默认地址
+</td></tr>
+{else/}
+<tr><td>
+<input type='radio' name='custID' value='{$cust.custID}'>
+{$cust.sname},{$cust.mobile},{$cust.address},{$cust.zip}
+&nbsp;&nbsp;&nbsp;<a href="{:url('customer/customerUpdate')}?custID={$cust.custID}">设为默认地址</a>
+&nbsp;&nbsp;&nbsp;<a href="{:url('customer/customerDelete')}?custID={$cust.custID}">删除</a>
+</td></tr>
+{/if}
+{/foreach}
+
+</table>
+
+</td></tr>
+<tr><td>
+ <table style="width:881px; font-size:small; text-align:left;border: 1px solid #666666;">
+       <tr style="background:url('__ROOT__/public/static/image/cartbg.jpg'); text-align:center;height:28px;font-weight: bold;">
+            <td>配送费用</td>
+       </tr>
+       <tr>
+            <td style="font-size:x-small;">
+             <input type="radio"  value="0" name="peisong" checked/>市区送货
+              (<span  style=" color:Red;font-size:x-small;font-weight:bold;"> 免费送货 </span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio"  name="peisong" value="30" />郊区送货
+               (<span  style=" color:Red;font-size:x-small; font-weight:bold;"> +30元 </span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio"  name="peisong" value="50" />远郊送货
+               (<span  style=" color:Red; font-size:x-small;font-weight:bold;"> +50元 </span>)
+            </td>
+     </tr>
+     <tr>
+          <td><span  style="font-size:x-small;">注：偏远地区请咨询客服确定配送费用，如超过50元需另外补付</span></td>
+    </tr>
+</table></td></tr>
+<tr><td>
+        <table style="width:881px; font-size:small; text-align:left;border: 1px solid #666666;">
+                    <tr style="background:url('__ROOT__/public/static/image/cartbg.jpg');text-align:center;height:28px;font-weight: bold;">
+                        <td>配送日期</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:x-small;">送货日期：<input type=text name="peisongday" size=18 value='{$tday}'><br />
+                            <b>时段： </b> 
+                            <input type=radio name="peisongtime"  value="不限" checked/>不限
+                            <input type=radio name="peisongtime"  value="上午（8：30-12：00）" />上午（8：30-12：00
+                            <input type=radio name="peisongtime"  value="下午（12：00-18：00）"/>下午（12：00-18：00）
+                            <input type=radio name="peisongtime" value="晚上（18：00-20：30）"/>晚上（18：00-20：30）
+                            <input type=radio name="peisongtime"  value="定时服务"/>定时服务
+                           </td>                
+                    </tr>    
+	</table>
+</td>
+</tr>
+<tr>
+<td>
+   <table style="width:881px; font-size:small; text-align:left;border: 1px solid #666666;">
+             <tr style="background:url('__ROOT__/public/static/image/cartbg.jpg');text-align:center;height:28px;font-weight: bold;">
+                 <td>特殊要求 </td>
+             </tr>
+             <tr>
+                 <td><span style="font-size:x-small;">如果您对配送服务有特殊要求，请在此说明，我们尽量满足：</span>
+                 <input  type=text name="psyq"  size="26"> </td>
+             </tr>
+   </table>
+</td></tr>
+<tr><td>
+   <table style="width:881px; font-size:small; text-align:left;border: 1px solid #666666;">
+            <tr style="background:url('__ROOT__/public/static/image/cartbg.jpg');text-align:center;height:28px;font-weight: bold;">
+                 <td >卡片资料（<span style="font-size:x-small;">随货赠送精美留言卡一张，请写下您的留言</span>）</td>
+            </tr>
+            <tr>
+                  <td style="font-size:x-small">给收货人留言<input type=text name="liuyan" size=60>最多支持200汉字或字符</td>
+            </tr>
+            <tr>
+                  <td style="font-size:x-small">购买人署名
+                 	<input type=radio name="gmrsm"  value="无需另外署名，卡片按留言栏填写就好了" checked/>无需另外署名，卡片按留言栏填写就好了<br />
+                 	<input type=radio name="gmrsm"  value="需要署名，我的署名是"/>需要署名，我的署名是:
+                 	&nbsp;&nbsp;<input type="text" name="shuming"><br />
+                 	<input type=radio name=gmrsm  value="不需要署名，我想保密！"/>不需要署名，我想保密！ <br />
+                   </td>
+           </tr>
+   </table>
+</td></tr>
+<tr><td>
+   <table style="width:881px; font-size:small; text-align:left;border: 1px solid #666666;">
+            <tr style="background:url('__ROOT__/public/static/image/cartbg.jpg');text-align:center;height:28px;font-weight: bold;">
+                 <td>付款方式（<span style="font-size:x-small;">请选择,确认提交订单后,页面将显示您所选付款方式的操作指引</span>）</td>
+            </tr>
+            <tr>
+                  <td style="font-size:x-small">
+                 	<input type=radio name="fkfs"  value="网上支付" checked/>网上支付<br />
+                 	<input type=radio name="fkfs"  value="银行转帐"/>银行转帐<br />
+                 	<input type=radio name="fkfs"  value="邮局汇款"/>邮局汇款 <br />
+                 	<input type=radio name="fkfs"  value="上门收款"/>上门收款 <br />
+                   </td>
+           </tr>
+           <tr><td style="font-size:x-small">注：偏远地区请咨询客服确定配送费用，如超过50元需另外补付</td></tr>
+   </table>
+</td></tr>
+<tr><td>
+   <table style="width:881px; font-size:small; text-align:left;border: 1px solid #666666;">
+            <tr style="background:url('__ROOT__/public/static/image/cartbg.jpg');text-align:center;height:28px;font-weight: bold;">
+                 <td>我需要寄发票 </td>
+            </tr>
+            <tr>
+                  <td style="font-size:x-small">
+                 	 发票相关说明：<br />
+                    1.发票由深圳总部寄出：默认使用“邮政平邮”，在订单送达后方开具寄出发票，递达通常需10-15个工作日；如您急需发票，可联系我司客服特殊安排处理。<br />
+                    2.发票内容视客户订购的商品类别不同，填写为：鲜花配送服务费、蛋糕配送服务费、礼品配送服务费。 
+                    <br />
+                    3.以下4项须全部填写完整准确，方开具和寄出发票。<br />
+                    4.万里通积分、关爱积分、V币、礼品卡四种支付方式已开具过发票给合作方，不再开具发票给使用者，如有疑问请联系积分/礼品卡提供方。&nbsp; 
+                   </td>
+           </tr>
+           <tr>
+           			<td style="font-size:x-small">发票抬头：
+           			<input type=text name="fp" value="个人或单位全称"><span style="color: #FF0000;">*</span> 
+           			</td>
+           </tr>
+           <tr>
+           			<td style="font-size:x-small">详细地址：
+           			<input type=text name="fpaddress" size=60> 
+           			</td>
+          </tr>
+           <tr>
+           			<td style="font-size:x-small">邮政编码：
+           			<input type=text name="zip" size=18> 
+           			</td>
+          </tr>
+           <tr>
+           			<td style="font-size:x-small">收&nbsp;信&nbsp;人：
+           			<input type=text name="fpsname" size=18> 
+           			</td>
+          </tr> 
+   </table>
+</td></tr>
+
+<tr><td>
+ <table style="width:881px; font-size:small; text-align:left;border: 1px solid #666666;">
+<tr style="background:url('__ROOT__/public/static/image/cartbg.jpg'); text-align:center;font-weight:bold; border-width:1px; border-style:groove;">
+<td>已选</td><td>编号</td><td>商品名称</td><td>市场价</td><td>现价</td><td>数量</td>
+</tr>
+{foreach $vcart as $cart}
+<tr style='text-align:center;height:50px;line-height:50px;'>
+<td><input type='checkbox' name='cartID[]' value='{$cart.cartID}' checked></td>
+<td>{$cart.flowerID}</td>
+<td><div style='height:50px; float:left;'>
+<img src='__ROOT__/public/static/picture/{$cart.pictures}' width=48 height=51 border=0></div>
+<div style='height:50px; float:left;'>{$cart.fname}</div>
+</td>
+<td>{$cart.price}</td><td>{$cart.yourprice}</td><td>{$cart.num}</td>
+</tr>
+{/foreach}
+ </table>
+</td></tr>
+
+<tr><td>
+   <table style="width:881px; font-size:small; text-align:left;border: 1px solid #666666;">
+  		  <tr>
+   					<td style="background:url('__ROOT__/public/static/image/cartbg.jpg'); text-align:center;font-weight:bold;width:881px">
+  					
+  					 <INPUT type="submit" name="s1" value="提交"></td>
+		  </tr>
+  </table>
+</td></tr>
+</table>
+</form>
+
+</td></tr>
+<tr>
+	<td><img src="__ROOT__/public/static/image/bottom.JPG"></td>
+</tr>
+</table>
+</center>
